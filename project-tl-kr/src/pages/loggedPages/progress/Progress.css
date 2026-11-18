@@ -1,0 +1,1394 @@
+#progress-page {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--ink);
+
+    h1, h2, h3 {
+        font-family: 'Noto Serif KR', serif;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .page-head {
+        display: flex;
+        margin-bottom: 22px;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--celadon-dark);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin: 0 0 4px;
+        }
+
+        p {
+            margin: 0;
+            color: var(--ink-soft);
+            font-size: 14px;
+        }
+    }
+
+    .stat-row {
+        white-space: nowrap;
+        display: grid;
+        grid-template-columns:repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 22px;
+
+        .stat-card {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 11px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                    stroke: currentColor;
+                }
+            }
+
+            .stat-icon.tone-a {
+                background: var(--celadon-light);
+                color: var(--celadon-dark);
+            }
+
+            .stat-icon.tone-b {
+                background: var(--gold-light);
+                color: var(--gold);
+            }
+
+            .stat-icon.tone-c {
+                background: var(--plum-light);
+                color: var(--plum);
+            }
+
+            .stat-icon.tone-d {
+                background: var(--celadon-light);
+                color: var(--celadon-dark);
+            }
+
+            .stat-num {
+                font-family: 'Noto Serif KR', serif;
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--ink);
+            }
+
+            .stat-label {
+                font-size: 12px;
+                color: var(--ink-soft);
+                margin-top: 1px;
+            }
+        }
+    }
+
+    .level-card {
+        width: 100%;
+        height: 100%;
+        background-color: var(--paper-card);
+        border: 1px solid var(--paper-dim);
+        border-radius: var(--radius);
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(35, 40, 35, 0.04);
+        color: var(--ink);
+        box-sizing: border-box;
+        margin-bottom: 22px;
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+
+            .level-badge {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background-color: var(--celadon-light);
+                color: var(--celadon-dark);
+                padding: 6px 12px;
+                border-radius: 999px;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+            .level-tag {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--gold);
+                background-color: var(--gold-light);
+                padding: 4px 10px;
+                border-radius: 8px;
+            }
+        }
+
+        .level-stats {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background-color: var(--paper);
+            border-radius: 10px;
+            padding: 12px 8px;
+            margin-bottom: 18px;
+
+            .stat-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+
+                .stat-label {
+                    font-size: 12px;
+                    color: var(--ink-soft);
+                }
+
+                .stat-val {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: var(--ink);
+
+                    small {
+                        font-size: 12px;
+                        font-weight: 400;
+                        color: var(--ink-soft);
+                    }
+                }
+            }
+
+            .stat-divider {
+                width: 1px;
+                height: 28px;
+                background-color: var(--paper-dim);
+            }
+        }
+
+        .progress-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .progress-label {
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                color: var(--ink-soft);
+                font-weight: 500;
+            }
+
+            .progress-bar {
+                width: 100%;
+                height: 8px;
+                background-color: var(--paper-dim);
+                border-radius: 999px;
+                overflow: hidden;
+
+                .progress-fill {
+                    height: 100%;
+                    background-color: var(--celadon);
+                    border-radius: 999px;
+                    transition: width 0.3s ease;
+                }
+            }
+        }
+    }
+
+    .level-path {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        border-radius: 16px;
+        background: var(--paper-card);
+        border: 1px solid var(--paper-dim);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .level-path__node {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .level-path__dot {
+        display: grid;
+        place-items: center;
+        flex: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+
+    .level-path__info {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .level-path__info small {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .level-path__info strong {
+        font-size: 15px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    /* Cấp hiện tại: nổi bật */
+    .level-path__node.current .level-path__dot {
+        color: #fff;
+        background: linear-gradient(135deg, var(--celadon), var(--celadon-dark));
+        box-shadow: 0 0 0 4px var(--celadon-light);
+    }
+    .level-path__node.current small  { color: var(--celadon-dark); }
+    .level-path__node.current strong { color: var(--ink); }
+
+    /* Cấp tiếp theo: mờ, chưa mở khóa */
+    .level-path__node.next .level-path__dot {
+        color: var(--ink-soft);
+        background: var(--paper);
+        border: 1px dashed var(--ink-soft);
+    }
+    .level-path__node.next small  { color: var(--ink-soft); }
+    .level-path__node.next strong { color: var(--ink-soft); }
+
+    /* Đường nối */
+    .level-path__line {
+        flex: none;
+        width: 36px;
+        height: 0;
+        border-top: 2px dashed var(--ink-soft);
+        opacity: 0.5;
+    }
+
+    @media (max-width: 480px) {
+        .level-path { gap: 8px; padding: 8px 12px; }
+        .level-path__line { width: 18px; }
+        .level-path__info strong { font-size: 14px; }
+    }
+
+    .row-2col {
+        display: grid;
+        grid-template-columns:1.3fr 1fr;
+        gap: 18px;
+        margin-bottom: 22px;
+        align-items: start;
+
+        .panel {
+            padding: 22px;
+
+            .panel-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 16px;
+
+                h3 {
+                    font-size: 16px;
+                    margin: 0 0 3px;
+                }
+
+                p {
+                    font-size: 12px;
+                    color: var(--ink-soft);
+                    margin: 0;
+                }
+
+                .range-toggle {
+                    display: flex;
+                    gap: 4px;
+                    background: var(--paper);
+                    border: 1px solid var(--paper-dim);
+                    border-radius: 9px;
+                    padding: 3px;
+
+                    button {
+                        border: none;
+                        background: transparent;
+                        padding: 5px 11px;
+                        border-radius: 7px;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: var(--ink-soft);
+                        cursor: pointer;
+                        font-family: 'Be Vietnam Pro', sans-serif;
+                    }
+
+                    button.active {
+                        background: var(--ink);
+                        color: var(--paper-card);
+                    }
+                }
+            }
+
+            .panel-head.no-margin {
+                margin-bottom: 0;
+            }
+
+            .bars {
+                display: flex;
+                align-items: flex-end;
+                gap: 8px;
+                height: 150px;
+
+                .bar-col {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 6px;
+
+                    .bar {
+                        width: 100%;
+                        background: var(--celadon);
+                        border-radius: 6px 6px 3px 3px;
+                        transition: height .3s ease;
+                    }
+
+                    .bar-val {
+                        font-size: 10px;
+                        color: var(--ink-soft);
+                        font-family: 'JetBrains Mono', monospace;
+                    }
+
+                    .bar-day {
+                        font-size: 10px;
+                        color: var(--ink-soft);
+                        font-family: 'JetBrains Mono', monospace;
+                    }
+                }
+            }
+
+            .heatmap-grid {
+                display: grid;
+                grid-template-columns:repeat(15, 1fr);
+                gap: 4px;
+            }
+
+            .heat-cell {
+                aspect-ratio: 1;
+                border-radius: 3px;
+                background: var(--paper-dim);
+            }
+
+            .heat-cell[data-level="1"] {
+                background: #C9D9E8;
+            }
+
+            .heat-cell[data-level="2"] {
+                background: #8FB2D1;
+            }
+
+            .heat-cell[data-level="3"] {
+                background: #4D7DA8;
+            }
+
+            .heat-cell[data-level="4"] {
+                background: #29506F;
+            }
+
+            .heatmap-foot {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 14px;
+                font-size: 11px;
+                color: var(--ink-soft);
+
+                .heat-scale {
+                    display: flex;
+                    align-items: center;
+                    gap: 3px;
+
+                    .heat-cell {
+                        width: 10px;
+                        height: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .category-row {
+        display: grid;
+        grid-template-columns:repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 22px;
+
+        .cat-card {
+            padding: 20px;
+
+            .cat-glyph {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Noto Serif KR', serif;
+                font-weight: 700;
+                font-size: 17px;
+                margin-bottom: 12px;
+            }
+
+            .cat-glyph.tone-celadon {
+                background: var(--celadon-light);
+                color: var(--celadon-dark);
+            }
+
+            .cat-glyph.tone-gold {
+                background: var(--gold-light);
+                color: var(--gold);
+            }
+
+            .cat-glyph.tone-plum {
+                background: var(--plum-light);
+                color: var(--plum);
+            }
+
+            h4 {
+                font-size: 14px;
+                margin: 0 0 2px;
+            }
+
+            .cat-sub {
+                font-size: 12px;
+                color: var(--ink-soft);
+                margin: 0;
+            }
+
+            .cat-progress-num {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--ink);
+                margin: 10px 0 6px;
+            }
+
+            .cat-track {
+                height: 7px;
+                border-radius: 4px;
+                background: var(--paper-dim);
+                overflow: hidden;
+
+                .cat-fill {
+                    height: 100%;
+                    border-radius: 4px;
+                }
+
+                .cat-fill.tone-celadon {
+                    background: var(--celadon);
+                }
+
+                .cat-fill.tone-gold {
+                    background: var(--gold);
+                }
+
+                .cat-fill.tone-plum {
+                    background: var(--plum);
+                }
+            }
+        }
+    }
+
+    .mastery-card {
+        margin-bottom: 22px;
+
+        .mastery-grid {
+            display: grid;
+            grid-template-columns:repeat(8, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+
+            .mastery-tile {
+                aspect-ratio: 1;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2px;
+
+                .g {
+                    font-family: 'Noto Serif KR', serif;
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+
+                .p {
+                    font-size: 9px;
+                    font-weight: 700;
+                    font-family: 'JetBrains Mono', monospace;
+                }
+            }
+
+            .mastery-tile.tone-strong {
+                background: var(--celadon-dark);
+                color: #fff;
+            }
+
+            .mastery-tile.tone-good {
+                background: var(--celadon);
+                color: #fff;
+            }
+
+            .mastery-tile.tone-mid {
+                background: var(--gold);
+                color: #fff;
+            }
+
+            .mastery-tile.tone-low {
+                background: var(--plum);
+                color: #fff;
+            }
+
+            .mastery-tile.tone-none {
+                background: var(--paper-dim);
+                color: var(--ink-soft);
+            }
+        }
+
+        .mastery-legend {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            font-size: 11px;
+            color: var(--ink-soft);
+            flex-wrap: wrap;
+
+            span {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .dot {
+                display: inline-block;
+                width: 9px;
+                height: 9px;
+                border-radius: 3px;
+            }
+
+            .dot.tone-strong {
+                background: var(--celadon-dark);
+            }
+
+            .dot.tone-good {
+                background: var(--celadon);
+            }
+
+            .dot.tone-mid {
+                background: var(--gold);
+            }
+
+            .dot.tone-low {
+                background: var(--plum);
+            }
+
+            .dot.tone-none {
+                background: var(--paper-dim);
+            }
+        }
+    }
+
+    .achieve-card {
+        .achieve-grid {
+            display: grid;
+            grid-template-columns:repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 16px;
+
+            .achieve-item {
+                padding: 16px;
+                border-radius: 12px;
+                border: 1px solid var(--paper-dim);
+                text-align: center;
+
+                .achieve-icon {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 12px;
+                    margin: 0 auto 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                        stroke: currentColor;
+                    }
+                }
+
+                .achieve-icon.tone-gold {
+                    background: var(--gold-light);
+                    color: var(--gold);
+                }
+
+                .achieve-icon.tone-celadon {
+                    background: var(--celadon-light);
+                    color: var(--celadon-dark);
+                }
+
+                .achieve-icon.tone-plum {
+                    background: var(--plum-light);
+                    color: var(--plum);
+                }
+
+                .achieve-icon.tone-locked {
+                    background: var(--paper-dim);
+                    color: var(--ink-soft);
+                }
+
+                h5 {
+                    font-size: 13px;
+                    margin: 0 0 4px;
+                    font-weight: 700;
+                }
+
+                p {
+                    font-size: 11px;
+                    color: var(--ink-soft);
+                    margin: 0;
+                    line-height: 1.4;
+                }
+            }
+
+            .achieve-item.locked {
+                opacity: 0.45;
+            }
+        }
+    }
+
+    .card {
+        background: var(--paper-card);
+        border: 1px solid var(--paper-dim);
+        border-radius: 14px;
+    }
+}
+
+@media (max-width: 1024px) {
+    #progress-page {
+        .page-head {
+            margin-bottom: 20px;
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 13px;
+            }
+        }
+
+        .stat-row {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            white-space: normal;
+
+            .stat-card {
+                padding: 16px 18px;
+                gap: 12px;
+
+                .stat-num {
+                    font-size: 20px;
+                }
+
+                .stat-label {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .level-card {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .row-2col {
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin-bottom: 20px;
+
+            .panel {
+                padding: 20px;
+                max-width: 100%;
+                overflow: hidden;
+
+                .bars {
+                    height: 140px;
+                    gap: 8px;
+                }
+
+                .heatmap-grid {
+                    grid-template-columns: repeat(12, 1fr);
+                    gap: 4px;
+                }
+            }
+        }
+
+        .category-row {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+
+            .cat-card {
+                padding: 16px;
+
+                h4 {
+                    font-size: 13px;
+                }
+
+                .cat-progress-num {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .mastery-card {
+            margin-bottom: 20px;
+
+            .mastery-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 8px;
+            }
+        }
+
+        .achieve-card {
+            .achieve-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+
+                .achieve-item {
+                    padding: 14px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #progress-page {
+
+        .page-head {
+            margin-bottom: 16px;
+
+            h1 {
+                font-size: 21px;
+                line-height: 1.35;
+            }
+
+            p {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+        }
+
+        .stat-row {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+            white-space: normal;
+
+            .stat-card {
+                padding: 14px 16px;
+                gap: 12px;
+
+                .stat-icon {
+                    width: 36px;
+                    height: 36px;
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                .stat-num {
+                    font-size: 19px;
+                }
+
+                .stat-label {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .l-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .level-card {
+            max-width: 100%;
+            padding: 16px;
+            margin-bottom: 0;
+
+            .level-header {
+                margin-bottom: 14px;
+
+                .level-badge {
+                    font-size: 13px;
+                    padding: 5px 10px;
+                }
+
+                .level-tag {
+                    font-size: 12px;
+                    padding: 3px 8px;
+                }
+            }
+
+            .level-stats {
+                padding: 10px 6px;
+                margin-bottom: 14px;
+
+                .stat-item {
+                    min-width: 0;
+
+                    .stat-label {
+                        font-size: 11px;
+                        text-align: center;
+                    }
+
+                    .stat-val {
+                        font-size: 16px;
+                    }
+                }
+
+                .stat-divider {
+                    height: 24px;
+                }
+            }
+        }
+
+        .row-2col {
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 18px;
+            margin-top: 18px;
+
+            .panel {
+                width: 100%;
+                padding: 16px;
+                overflow: hidden;
+
+                .panel-head {
+                    flex-direction: column;
+                    gap: 10px;
+                    align-items: flex-start;
+                    margin-bottom: 14px;
+
+                    h3 {
+                        font-size: 15px;
+                    }
+
+                    p {
+                        font-size: 11px;
+                    }
+
+                    .range-toggle {
+                        width: 100%;
+                        display: flex;
+
+                        button {
+                            flex: 1;
+                            padding: 6px 0;
+                            text-align: center;
+                            font-size: 11px;
+                        }
+                    }
+                }
+
+                .bars {
+                    width: 100%;
+                    overflow-x: auto;
+                    height: 130px;
+                    gap: 6px;
+
+                    .bar-col {
+                        min-width: 30px;
+
+                        .bar-val,
+                        .bar-day {
+                            font-size: 9px;
+                        }
+                    }
+                }
+
+                .heatmap-grid {
+                    grid-template-columns: repeat(8, 1fr);
+                    gap: 3px;
+                }
+
+                .heatmap-foot {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                    margin-top: 12px;
+                }
+            }
+        }
+
+        .category-row {
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 18px;
+
+            .cat-card {
+                padding: 16px;
+
+                .cat-glyph {
+                    width: 34px;
+                    height: 34px;
+                    font-size: 15px;
+                    margin-bottom: 10px;
+                }
+
+                h4 {
+                    font-size: 13px;
+                }
+
+                .cat-sub {
+                    font-size: 11px;
+                }
+            }
+        }
+
+        .mastery-card {
+            margin-bottom: 18px;
+            padding: 16px;
+
+            .mastery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+                margin-top: 12px;
+
+                .mastery-tile {
+                    .g {
+                        font-size: 15px;
+                    }
+
+                    .p {
+                        font-size: 8px;
+                    }
+                }
+            }
+
+            .mastery-legend {
+                gap: 10px 14px;
+                margin-top: 14px;
+                font-size: 11px;
+            }
+        }
+
+        .achieve-card {
+            padding: 16px;
+
+            .achieve-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-top: 12px;
+
+                .achieve-item {
+                    display: flex;
+                    align-items: center;
+                    text-align: left;
+                    gap: 12px;
+                    padding: 12px;
+
+                    .achieve-icon {
+                        width: 40px;
+                        height: 40px;
+                        margin: 0;
+                        flex-shrink: 0;
+
+                        svg {
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+
+                    h5 {
+                        font-size: 12px;
+                    }
+
+                    p {
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    #progress-page {
+
+        .page-head {
+            margin-bottom: 14px;
+
+            h1 {
+                font-size: 19px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+
+            .eyebrow {
+                font-size: 10px;
+            }
+        }
+
+        .stat-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+
+            .stat-card {
+                padding: 12px 14px;
+                gap: 10px;
+
+                .stat-icon {
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 9px;
+
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+
+                .stat-num {
+                    font-size: 18px;
+                }
+
+                .stat-label {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .level-card {
+            padding: 14px;
+
+            .level-header {
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-bottom: 12px;
+
+                .level-badge {
+                    font-size: 12px;
+                    padding: 5px 9px;
+                }
+
+                .level-tag {
+                    font-size: 11px;
+                    padding: 3px 7px;
+                }
+            }
+
+            .level-stats {
+                padding: 9px 4px;
+                margin-bottom: 12px;
+
+                .stat-item {
+                    .stat-label {
+                        font-size: 10px;
+                    }
+
+                    .stat-val {
+                        font-size: 15px;
+
+                        small {
+                            font-size: 10px;
+                        }
+                    }
+                }
+
+                .stat-divider {
+                    height: 22px;
+                }
+            }
+
+            .progress-section {
+                gap: 6px;
+
+                .progress-label {
+                    font-size: 11px;
+                }
+
+                .progress-bar {
+                    height: 7px;
+                }
+            }
+        }
+
+        .user-level {
+            width: 100%;
+            padding: 14px;
+        }
+
+        .row-2col {
+            gap: 12px;
+            margin-top: 14px;
+            margin-bottom: 14px;
+
+            .panel {
+                padding: 14px;
+
+                .panel-head {
+                    margin-bottom: 12px;
+
+                    h3 {
+                        font-size: 10px;
+                    }
+
+                    p {
+                        font-size: 8px;
+                    }
+                }
+
+                .bars {
+                    height: 115px;
+                    gap: 5px;
+
+                    .bar-col {
+                        min-width: 26px;
+
+                        .bar-val,
+                        .bar-day {
+                            font-size: 8px;
+                        }
+                    }
+                }
+
+                .heatmap-grid {
+                    grid-template-columns: repeat(7, 1fr);
+                    gap: 3px;
+                }
+
+                .heatmap-foot {
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .category-row {
+            gap: 10px;
+            margin-bottom: 14px;
+
+            .cat-card {
+                padding: 14px;
+
+                .cat-glyph {
+                    width: 32px;
+                    height: 32px;
+                    font-size: 14px;
+                    margin-bottom: 8px;
+                }
+
+                h4 {
+                    font-size: 12px;
+                }
+
+                .cat-sub {
+                    font-size: 10px;
+                }
+
+                .cat-progress-num {
+                    font-size: 11px;
+                }
+
+                .cat-track {
+                    height: 6px;
+                }
+            }
+        }
+
+        .mastery-card {
+            padding: 14px;
+            margin-bottom: 14px;
+
+            .mastery-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
+                margin-top: 10px;
+
+                .mastery-tile {
+                    border-radius: 8px;
+
+                    .g {
+                        font-size: 14px;
+                    }
+
+                    .p {
+                        font-size: 7px;
+                    }
+                }
+            }
+
+            .mastery-legend {
+                gap: 8px 10px;
+                margin-top: 12px;
+                font-size: 10px;
+
+                .dot {
+                    width: 8px;
+                    height: 8px;
+                }
+            }
+        }
+
+        .achieve-card {
+            padding: 14px;
+
+            .achieve-grid {
+                gap: 8px;
+                margin-top: 10px;
+
+                .achieve-item {
+                    gap: 10px;
+                    padding: 10px;
+
+                    .achieve-icon {
+                        width: 36px;
+                        height: 36px;
+                        border-radius: 10px;
+
+                        svg {
+                            width: 16px;
+                            height: 16px;
+                        }
+                    }
+
+                    h5 {
+                        font-size: 11px;
+                    }
+
+                    p {
+                        font-size: 9px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    #progress-page {
+
+        .page-head {
+            h1 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 11px;
+            }
+        }
+
+        .stat-row {
+            .stat-card {
+                padding: 11px 12px;
+
+                .stat-icon {
+                    width: 32px;
+                    height: 32px;
+                }
+
+                .stat-num {
+                    font-size: 17px;
+                }
+            }
+        }
+
+        .level-card {
+            padding: 12px;
+
+            .level-header {
+                .level-badge {
+                    font-size: 11px;
+                }
+
+                .level-tag {
+                    font-size: 10px;
+                }
+            }
+
+            .level-stats {
+                .stat-item {
+                    .stat-label {
+                        font-size: 9px;
+                    }
+
+                    .stat-val {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+
+        .row-2col {
+            .panel {
+                padding: 12px;
+
+                .bars {
+                    height: 105px;
+                }
+
+                .heatmap-grid {
+                    gap: 2px;
+                }
+            }
+        }
+
+        .mastery-card {
+            padding: 12px;
+
+            .mastery-grid {
+                gap: 5px;
+
+                .mastery-tile {
+                    .g {
+                        font-size: 13px;
+                    }
+
+                    .p {
+                        font-size: 6px;
+                    }
+                }
+            }
+        }
+    }
+}

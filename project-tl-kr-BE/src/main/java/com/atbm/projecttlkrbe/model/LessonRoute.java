@@ -1,0 +1,37 @@
+package com.atbm.projecttlkrbe.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "lesson_route")
+@Data
+public class LessonRoute {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JoinColumn(name = "cateRoute_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private LessonCategoryRoute cateRoute;
+
+    private String name;
+    private int orderIndex;
+    private boolean isActive;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String youtubeId;
+    private String duration;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(columnDefinition = "TEXT")
+    private String desFinish;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_id")
+    private Quiz quiz;
+}

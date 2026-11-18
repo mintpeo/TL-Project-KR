@@ -1,0 +1,119 @@
+package com.atbm.projecttlkrbe.service;
+
+import com.atbm.projecttlkrbe.dto.request.LessonRouteReq;
+import com.atbm.projecttlkrbe.dto.response.LessonRouteRes;
+import com.atbm.projecttlkrbe.model.*;
+import com.atbm.projecttlkrbe.repository.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class LessonRouteSer {
+    private final LessonRouteRep rep;
+    private final UserLessonProgressRep userLessonProgressRep;
+    private final LessonContentRep lessonContentRep;
+    private final QuestionRep questionRep;
+
+    // Get 2 video for Home
+    public List<LessonRouteRes> getLessonHomeRoutes() {
+        Long cateRouteId = 1L;
+        List<LessonRoute> list = rep.findByCateRouteId(cateRouteId);
+        List<LessonRouteRes> res = new ArrayList<>();
+        for (LessonRoute lr : list) {
+            // Lesson
+            LessonRouteRes lrr = new LessonRouteRes();
+            long lessonId = lr.getId();
+
+            lrr.setId(lessonId);
+            lrr.setName(lr.getName());
+            lrr.setYoutubeId(lr.getYoutubeId());
+            lrr.setCateRouteId(cateRouteId);
+            lrr.setDes(lr.getDescription());
+            lrr.setOrderIndex(lr.getOrderIndex());
+            lrr.setDesFinish(lr.getDesFinish());
+            res.add(lrr);
+        }
+        return res;
+    }
+
+    public List<LessonRouteRes> getLessonWithCateRouteIdWithParm(Long userId, Long cateRouteId) {
+        List<LessonRoute> list = rep.findByCateRouteId(cateRouteId);
+        List<LessonRouteRes> res = new ArrayList<>();
+        for (LessonRoute lr : list) {
+            // Lesson
+            LessonRouteRes lrr = new LessonRouteRes();
+            long lessonId = lr.getId();
+
+            lrr.setId(lessonId);
+            lrr.setName(lr.getName());
+            lrr.setYoutubeId(lr.getYoutubeId());
+            lrr.setCateRouteId(cateRouteId);
+            lrr.setDes(lr.getDescription());
+            lrr.setOrderIndex(lr.getOrderIndex());
+            lrr.setDesFinish(lr.getDesFinish());
+
+            // Quiz
+            if (lr.getQuiz() != null) {
+                lrr.setQuizId(lr.getQuiz().getId());
+                List<Question> questions = questionRep.findByQuizId(lr.getQuiz().getId());
+                lrr.setTotalQuestions(questions.size());
+            }
+
+            UserLessonProgress ulp = userLessonProgressRep.findByUser_IdAndLessonRoute_Id(userId, lessonId).orElseThrow(() -> new RuntimeException("Lesson Progress Not Found: " + userId + " " + lessonId));
+            lrr.setLearned(ulp.isLearned());
+
+            Optional<LessonContent> lessonContent = lessonContentRep.findByLessonRoute_Id(lessonId);
+            if (lessonContent.isPresent()) lrr.setLearnContent(true);
+            else lrr.setLearnContent(false);
+
+            res.add(lrr);
+        }
+        return res;
+    }
+
+    // Get lesson with category route id
+    public List<LessonRouteRes> getLessonWithCateRouteId(LessonRouteReq req) {
+        long userId = req.getUserId();
+        long cateRouteId = req.getCateRouteId();
+
+        List<LessonRoute> list = rep.findByCateRouteId(cateRouteId);
+        List<LessonRouteRes> res = new ArrayList<>();
+        for (LessonRoute lr : list) {
+            if (!lr.isActive()) break;
+
+            // Lesson
+            LessonRouteRes lrr = new LessonRouteRes();
+            long lessonId = lr.getId();
+
+            lrr.setId(lessonId);
+            lrr.setName(lr.getName());
+            lrr.setYoutubeId(lr.getYoutubeId());
+            lrr.setCateRouteId(cateRouteId);
+            lrr.setDes(lr.getDescription());
+            lrr.setOrderIndex(lr.getOrderIndex());
+            lrr.setDesFinish(lr.getDesFinish());
+
+            // Quiz
+            if (lr.getQuiz() != null) {
+                lrr.setQuizId(lr.getQuiz().getId());
+                List<Question> questions = questionRep.findByQuizId(lr.getQuiz().getId());
+                lrr.setTotalQuestions(questions.size());
+            }
+
+            UserLessonProgress ulp = userLessonProgressRep.findByUser_IdAndLessonRoute_Id(userId, lessonId).orElseThrow(() -> new RuntimeException("Lesson Progress Not Found: " + userId + " " + lessonId));
+            lrr.setLearned(ulp.isLearned());
+
+            Optional<LessonContent> lessonContent = lessonContentRep.findByLessonRoute_Id(lessonId);
+            if (lessonContent.isPresent()) lrr.setLearnContent(true);
+            else lrr.setLearnContent(false);
+
+            res.add(lrr);
+        }
+        return res;
+    }
+}

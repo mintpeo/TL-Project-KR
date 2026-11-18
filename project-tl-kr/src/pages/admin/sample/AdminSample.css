@@ -1,0 +1,962 @@
+#admin-samples {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--ink);
+
+    h1, h3 {
+        font-family: 'Noto Serif KR', serif;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+    }
+
+    .mono {
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .page-head {
+        margin-bottom: 24px;
+
+        h1 {
+            font-size: 25px;
+            margin: 0 0 4px;
+        }
+
+        p {
+            margin: 0;
+            color: var(--ink-soft);
+            font-size: 14px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--celadon-dark);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+    }
+
+    .card {
+        background: var(--paper-card);
+        border: 1px solid var(--paper-dim);
+        border-radius: 14px;
+    }
+
+    .stat-row {
+        display: grid;
+        grid-template-columns:repeat(3, 1fr);
+        gap: 14px;
+        margin-bottom: 22px;
+
+        .stat-card {
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 11px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                    stroke: currentColor;
+                    fill: none;
+                    stroke-width: 1.8;
+                }
+            }
+
+            .stat-icon.tone-a {
+                background: var(--celadon-light);
+                color: var(--celadon-dark);
+            }
+
+            .stat-icon.tone-b {
+                background: var(--gold-light);
+                color: var(--gold);
+            }
+
+            .stat-icon.tone-c {
+                background: var(--plum-light);
+                color: var(--plum);
+            }
+
+            .stat-num {
+                font-family: 'Noto Serif KR', serif;
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--ink);
+            }
+
+            .stat-label {
+                font-size: 12px;
+                color: var(--ink-soft);
+                margin-top: 1px;
+            }
+        }
+    }
+
+    .toolbar {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+
+        .search-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 220px;
+
+            svg {
+                position: absolute;
+                left: 13px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 15px;
+                height: 15px;
+                stroke: var(--ink-soft);
+                fill: none;
+                stroke-width: 2;
+            }
+
+            input {
+                width: 100%;
+                padding: 9px 14px 9px 36px;
+                border-radius: 9px;
+                border: 1px solid var(--paper-dim);
+                background: var(--paper-card);
+                font-size: 13px;
+                color: var(--ink);
+                outline: none;
+                font-family: 'Be Vietnam Pro', sans-serif;
+
+                &:focus {
+                    border-color: var(--celadon);
+                }
+            }
+        }
+
+        select {
+            padding: 9px 30px 9px 13px;
+            border-radius: 9px;
+            border: 1px solid var(--paper-dim);
+            background: var(--paper-card);
+            font-size: 13px;
+            color: var(--ink);
+            outline: none;
+            cursor: pointer;
+            font-family: 'Be Vietnam Pro', sans-serif;
+
+            &:focus {
+                border-color: var(--celadon);
+            }
+        }
+    }
+
+    .char-grid {
+        display: grid;
+        grid-template-columns:repeat(5, 1fr);
+        gap: 14px;
+
+        .char-card {
+            background: var(--paper-card);
+            border: 1px solid var(--paper-dim);
+            border-radius: 14px;
+            padding: 14px;
+            cursor: pointer;
+            transition: border-color .15s ease;
+
+            &:hover {
+                border-color: var(--celadon);
+            }
+
+            .char-card-thumb {
+                width: 100%;
+                aspect-ratio: 1;
+                border-radius: 10px;
+                background: var(--paper);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 10px;
+
+                .thumb-glyph {
+                    font-family: 'Noto Serif KR', serif;
+                    font-size: 34px;
+                    font-weight: 700;
+                    color: var(--ink);
+                }
+
+                .thumb-glyph.placeholder {
+                    color: var(--paper-dim);
+                }
+            }
+
+            .char-card-info {
+                p {
+                    margin: 0 0 6px;
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+
+                .mono {
+                    font-size: 11px;
+                    color: var(--ink-soft);
+                    font-weight: 400;
+                }
+
+                .category-badge {
+                    font-size: 11px;
+                    font-weight: 700;
+                    padding: 3px 9px;
+                    border-radius: 20px;
+                    display: inline-block;
+                }
+
+                .category-badge.vowel {
+                    background: var(--celadon-light);
+                    color: var(--celadon-dark);
+                }
+
+                .category-badge.consonant {
+                    background: var(--gold-light);
+                    color: var(--gold);
+                }
+
+                .category-badge.syllable {
+                    background: var(--plum-light);
+                    color: var(--plum);
+                }
+            }
+
+            .sample-count {
+                margin-top: 10px;
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--celadon-dark);
+                background: var(--celadon-light);
+                padding: 4px 10px;
+                border-radius: 20px;
+                display: inline-block;
+            }
+
+            .sample-count.zero {
+                color: var(--plum);
+                background: var(--plum-light);
+            }
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--ink-soft);
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(35, 40, 35, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+
+        .modal-card {
+            width: 100%;
+            max-width: 460px;
+            background: var(--paper-card);
+            border-radius: 16px;
+            padding: 26px;
+            max-height: 90vh;
+            overflow-y: auto;
+
+            .modal-head {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 20px;
+                position: relative;
+
+                .modal-head-glyph {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 12px;
+                    background: var(--celadon-light);
+                    color: var(--celadon-dark);
+                    font-family: 'Noto Serif KR', serif;
+                    font-size: 22px;
+                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                h3 {
+                    font-size: 16px;
+                    margin: 0 0 5px;
+                }
+
+                .close-btn {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    border: 1px solid var(--paper-dim);
+                    background: var(--paper);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    color: var(--ink-soft);
+
+                    svg {
+                        width: 14px;
+                        height: 14px;
+                        stroke: currentColor;
+                        fill: none;
+                        stroke-width: 2;
+                    }
+
+                    &:hover {
+                        border-color: var(--plum);
+                        color: var(--plum);
+                    }
+                }
+            }
+
+            .sample-grid {
+                display: grid;
+                grid-template-columns:repeat(3, 1fr);
+                gap: 12px;
+
+                .sample-tile {
+                    position: relative;
+                    background: var(--paper);
+                    border: 1px solid var(--paper-dim);
+                    border-radius: 12px;
+                    padding: 10px;
+                    text-align: center;
+
+                    .sample-thumb {
+                        width: 100%;
+                        aspect-ratio: 1;
+                        border-radius: 9px;
+                        background: var(--paper-card);
+                        border: 1px solid var(--paper-dim);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 8px;
+
+                        img {
+                            transform: scale(4.5);
+                        }
+
+                        span {
+                            font-family: 'Noto Serif KR', serif;
+                            font-size: 28px;
+                            font-weight: 700;
+                            color: var(--ink);
+                        }
+                    }
+
+                    .sample-info {
+                        p {
+                            margin: 0;
+                            font-size: 12px;
+                            font-weight: 700;
+                        }
+
+                        span {
+                            font-size: 10px;
+                            color: var(--ink-soft);
+                        }
+                    }
+
+                    .sample-remove {
+                        position: absolute;
+                        top: 6px;
+                        right: 6px;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 50%;
+                        border: none;
+                        background: var(--plum-light);
+                        color: var(--plum);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+
+                        svg {
+                            width: 10px;
+                            height: 10px;
+                            stroke: currentColor;
+                            fill: none;
+                            stroke-width: 2.6;
+                        }
+                    }
+                }
+
+                .add-tile {
+                    border: 1px dashed var(--paper-dim);
+                    background: transparent;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    cursor: pointer;
+                    color: var(--ink-soft);
+                    min-height: 110px;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                        stroke: currentColor;
+                        fill: none;
+                        stroke-width: 2;
+                    }
+
+                    span {
+                        font-size: 11px;
+                        font-weight: 600;
+                    }
+
+                    &:hover {
+                        border-color: var(--celadon);
+                        color: var(--celadon-dark);
+                    }
+                }
+            }
+
+            .empty-hint {
+                margin: 16px 0 0;
+                font-size: 12px;
+                color: var(--plum);
+                background: var(--plum-light);
+                padding: 10px 12px;
+                border-radius: 9px;
+                line-height: 1.5;
+            }
+        }
+
+        .modal-card.wide {
+            max-width: 560px;
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    #admin-samples {
+        .modal-overlay {
+            padding: 20px;
+
+            .modal-card {
+                max-width: 440px;
+                max-height: 90vh;
+                padding: 24px;
+
+                &.wide {
+                    max-width: 540px;
+                }
+
+                .modal-head {
+                    gap: 12px;
+                    margin-bottom: 18px;
+
+                    .modal-head-glyph {
+                        width: 46px;
+                        height: 46px;
+                        font-size: 21px;
+                    }
+
+                    h3 {
+                        font-size: 15px;
+                    }
+
+                    .close-btn {
+                        width: 29px;
+                        height: 29px;
+                    }
+                }
+
+                .sample-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+
+                    .sample-tile {
+                        padding: 9px;
+
+                        .sample-thumb {
+                            img {
+                                transform: scale(4);
+                            }
+
+                            span {
+                                font-size: 26px;
+                            }
+                        }
+
+                        .sample-info {
+                            p {
+                                font-size: 11px;
+                            }
+
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+                    }
+
+                    .add-tile {
+                        min-height: 105px;
+                    }
+                }
+
+                .empty-hint {
+                    font-size: 11px;
+                    padding: 9px 11px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    #admin-samples {
+        .modal-overlay {
+            padding: 18px;
+
+            .modal-card {
+                width: 100%;
+                max-width: 500px;
+                max-height: 88vh;
+                padding: 22px;
+
+                &.wide {
+                    max-width: 560px;
+                }
+
+                .modal-head {
+                    gap: 11px;
+                    margin-bottom: 17px;
+
+                    .modal-head-glyph {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 11px;
+                        font-size: 20px;
+                    }
+
+                    h3 {
+                        font-size: 15px;
+                        padding-right: 35px;
+                    }
+
+                    .close-btn {
+                        width: 29px;
+                        height: 29px;
+                    }
+                }
+
+                .sample-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 10px;
+
+                    .sample-tile {
+                        padding: 8px;
+                        border-radius: 10px;
+
+                        .sample-thumb {
+                            margin-bottom: 7px;
+
+                            img {
+                                transform: scale(3.5);
+                            }
+
+                            span {
+                                font-size: 25px;
+                            }
+                        }
+
+                        .sample-info {
+                            p {
+                                font-size: 11px;
+                            }
+
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+
+                        .sample-remove {
+                            top: 5px;
+                            right: 5px;
+                            width: 19px;
+                            height: 19px;
+                        }
+                    }
+
+                    .add-tile {
+                        min-height: 100px;
+
+                        svg {
+                            width: 19px;
+                            height: 19px;
+                        }
+
+                        span {
+                            font-size: 10px;
+                        }
+                    }
+                }
+
+                .empty-hint {
+                    margin-top: 14px;
+                    font-size: 11px;
+                    padding: 9px 11px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    #admin-samples {
+        .modal-overlay {
+            padding: 14px;
+
+            .modal-card {
+                width: 100%;
+                max-width: 500px;
+                max-height: 90vh;
+                padding: 20px;
+                border-radius: 14px;
+
+                &.wide {
+                    max-width: 500px;
+                }
+
+                .modal-head {
+                    gap: 10px;
+                    margin-bottom: 16px;
+
+                    .modal-head-glyph {
+                        width: 42px;
+                        height: 42px;
+                        border-radius: 10px;
+                        font-size: 19px;
+                    }
+
+                    h3 {
+                        font-size: 15px;
+                        margin-bottom: 4px;
+                        padding-right: 32px;
+                    }
+
+                    .close-btn {
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 7px;
+
+                        svg {
+                            width: 13px;
+                            height: 13px;
+                        }
+                    }
+                }
+
+                .sample-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 9px;
+
+                    .sample-tile {
+                        padding: 8px;
+                        border-radius: 10px;
+
+                        .sample-thumb {
+                            border-radius: 8px;
+
+                            img {
+                                transform: scale(3);
+                            }
+
+                            span {
+                                font-size: 24px;
+                            }
+                        }
+
+                        .sample-info {
+                            p {
+                                font-size: 10px;
+                            }
+
+                            span {
+                                font-size: 9px;
+                            }
+                        }
+
+                        .sample-remove {
+                            width: 18px;
+                            height: 18px;
+                            top: 5px;
+                            right: 5px;
+
+                            svg {
+                                width: 9px;
+                                height: 9px;
+                            }
+                        }
+                    }
+
+                    .add-tile {
+                        min-height: 90px;
+
+                        svg {
+                            width: 18px;
+                            height: 18px;
+                        }
+
+                        span {
+                            font-size: 10px;
+                        }
+                    }
+                }
+
+                .empty-hint {
+                    margin-top: 13px;
+                    font-size: 11px;
+                    padding: 9px 10px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    #admin-samples {
+        .char-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        .modal-overlay {
+            padding: 10px;
+            align-items: center;
+
+            .modal-card {
+                width: 100%;
+                max-width: none;
+                max-height: 92vh;
+                padding: 16px;
+                border-radius: 13px;
+
+                &.wide {
+                    max-width: none;
+                }
+
+                .modal-head {
+                    gap: 9px;
+                    margin-bottom: 14px;
+
+                    .modal-head-glyph {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 9px;
+                        font-size: 18px;
+                    }
+
+                    h3 {
+                        font-size: 14px;
+                        margin-bottom: 3px;
+                        padding-right: 30px;
+                    }
+
+                    .close-btn {
+                        width: 27px;
+                        height: 27px;
+                        border-radius: 7px;
+
+                        svg {
+                            width: 12px;
+                            height: 12px;
+                        }
+                    }
+                }
+
+                .sample-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 8px;
+
+                    .sample-tile {
+                        padding: 7px;
+                        border-radius: 9px;
+
+                        .sample-thumb {
+                            margin-bottom: 6px;
+                            border-radius: 7px;
+
+                            img {
+                                transform: scale(2.5);
+                            }
+
+                            span {
+                                font-size: 22px;
+                            }
+                        }
+
+                        .sample-info {
+                            p {
+                                font-size: 10px;
+                            }
+
+                            span {
+                                font-size: 8px;
+                            }
+                        }
+
+                        .sample-remove {
+                            width: 18px;
+                            height: 18px;
+                            top: 4px;
+                            right: 4px;
+
+                            svg {
+                                width: 9px;
+                                height: 9px;
+                            }
+                        }
+                    }
+
+                    .add-tile {
+                        min-height: 85px;
+
+                        svg {
+                            width: 18px;
+                            height: 18px;
+                        }
+
+                        span {
+                            font-size: 10px;
+                            text-align: center;
+                        }
+                    }
+                }
+
+                .empty-hint {
+                    margin-top: 12px;
+                    font-size: 10px;
+                    padding: 8px 10px;
+                    line-height: 1.45;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 375px) {
+    #admin-samples {
+        .modal-overlay {
+            padding: 7px;
+
+            .modal-card {
+                max-height: 94vh;
+                padding: 14px;
+                border-radius: 12px;
+
+                .modal-head {
+                    margin-bottom: 12px;
+
+                    .modal-head-glyph {
+                        width: 37px;
+                        height: 37px;
+                        font-size: 17px;
+                    }
+
+                    h3 {
+                        font-size: 13px;
+                        padding-right: 28px;
+                    }
+
+                    .close-btn {
+                        width: 25px;
+                        height: 25px;
+
+                        svg {
+                            width: 11px;
+                            height: 11px;
+                        }
+                    }
+                }
+
+                .sample-grid {
+                    gap: 7px;
+
+                    .sample-tile {
+                        padding: 6px;
+
+                        .sample-thumb {
+                            img {
+                                transform: scale(2.2);
+                            }
+
+                            span {
+                                font-size: 20px;
+                            }
+                        }
+
+                        .sample-info {
+                            p {
+                                font-size: 9px;
+                            }
+
+                            span {
+                                font-size: 8px;
+                            }
+                        }
+
+                        .sample-remove {
+                            width: 17px;
+                            height: 17px;
+                            top: 3px;
+                            right: 3px;
+                        }
+                    }
+
+                    .add-tile {
+                        min-height: 78px;
+
+                        svg {
+                            width: 16px;
+                            height: 16px;
+                        }
+
+                        span {
+                            font-size: 9px;
+                        }
+                    }
+                }
+
+                .empty-hint {
+                    margin-top: 10px;
+                    font-size: 9px;
+                    padding: 7px 8px;
+                }
+            }
+        }
+    }
+}

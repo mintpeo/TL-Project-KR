@@ -1,0 +1,262 @@
+package com.atbm.projecttlkrbe.controller;
+
+import com.atbm.projecttlkrbe.dto.request.*;
+import com.atbm.projecttlkrbe.dto.response.*;
+import com.atbm.projecttlkrbe.model.*;
+import com.atbm.projecttlkrbe.service.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/admin")
+@CrossOrigin(origins = "${app.frontend.url}")
+@RequiredArgsConstructor
+public class AdminCon {
+    private final AdminSer ser;
+    private final AdminLessonSer lessonSer;
+    private final AdminCharacterSer characterSer;
+    private final AdminExerciseSer exerciseSer;
+    private final AdminActivitySer activitySer;
+    private final AdminStrokeDataSer strokeDataSer;
+    private final AdminTempDataSer tempDataSer;
+
+    @DeleteMapping("/quiz")
+    public boolean delete(@RequestBody Map<String, Long> body) {
+        Long quizId = body.get("quizId");
+        return exerciseSer.deleteQuiz(quizId);
+    }
+
+    @PostMapping("/add-new-quiz")
+    public boolean addNewQuiz(@RequestBody Map<String, String> body) {
+        String nameQuiz = body.get("nameQuiz");
+        return exerciseSer.addNewQuiz(nameQuiz);
+    }
+
+    @PostMapping("/edit-exam-config")
+    public boolean editExamConfig(@RequestBody AdminExamConfigReq req) {
+        return lessonSer.editExamConfig(req);
+    }
+
+    @GetMapping("/exam-config")
+    public ExamConfig getExamConfig() {
+        return lessonSer.getExamConfig();
+    }
+
+    @PostMapping("/update-order-index-cate")
+    public boolean updateOrderIndexCate(@RequestBody AdminCateOrderIndexReq req) {
+        return lessonSer.updateOrderIndexCate(req);
+    }
+
+    @PostMapping("/edit-cate")
+    public boolean editCate(@RequestBody Map<String, Long> body) {
+        Long cateId = body.get("cateId");
+        return lessonSer.editCate(cateId);
+    }
+
+    @DeleteMapping("/delete-cate")
+    public boolean deleteCate(@RequestBody Map<String, Long> body) {
+        Long cateId = body.get("cateId");
+        return lessonSer.deleteCate(cateId);
+    }
+
+    @PostMapping("/create-cate")
+    public boolean createNewCate(@RequestBody Map<String, String> body) {
+        String nameCate = body.get("nameCate");
+        return lessonSer.createNewCate(nameCate);
+    }
+
+    @GetMapping("/all-cate")
+    public List<LessonCategoryRouteRes> getLessonCategoryRoutes() {
+        return lessonSer.getLessonCategoryRoutes();
+    }
+
+    @GetMapping("/lessons-activity")
+    public List<AdminLessonActivityRes> getLessonsActivity() {
+        return activitySer.getLessonActivity();
+    }
+
+    @GetMapping("/user-levels-activity")
+    public List<AdminUserLevelActivityRes> getUserLevelActivity() {
+        return activitySer.getUserLevelActivity();
+    }
+
+    @DeleteMapping("/delete-char-temp")
+    public void deleteCharTemp(@RequestBody Map<String, Long> body) {
+        Long id = body.get("id");
+        tempDataSer.deleteCharTemp(id);
+    }
+
+    @PutMapping("/upload-char-temp")
+    public boolean uploadCharTemp(@RequestParam("charId") Long charId, @RequestParam("file") MultipartFile file) throws IOException {
+        return tempDataSer.uploadCharTemp(charId, file);
+    }
+
+    @GetMapping("/all-temp")
+    public List<AdminTempDataRes> getTempData() {
+        return tempDataSer.getAdminTempData();
+    }
+
+    @PostMapping("/handle-option-stroke")
+    public boolean handleOptionStroke(@RequestBody List<AdminStrokeOptionDataReq> reqs) {
+        return strokeDataSer.handleStrokeOption(reqs);
+    }
+
+    @GetMapping("/all-option-stroke")
+    public List<StrokeOptionData> getAllOptions() {
+        return strokeDataSer.getAllOptions();
+    }
+
+    @GetMapping("/all-stroke")
+    public List<AdminStrokeDataRes> getAllStroke() {
+        return strokeDataSer.getAllStroke();
+    }
+
+    @PostMapping("/flag-stroke")
+    public boolean flagStroke(@RequestBody FlagDraftReq req) {
+        return strokeDataSer.flagDraft(req);
+    }
+
+    @PostMapping("/upload-active")
+    public boolean approveDaft(@RequestBody Map<String, Long> body) throws IOException {
+        Long charId = body.get("charId");
+        return strokeDataSer.approveDaft(charId);
+    }
+
+    @PutMapping("/upload-pending")
+    public boolean uploadPending(@RequestParam("charId") Long charId, @RequestParam("file") MultipartFile file) throws IOException {
+        return strokeDataSer.uploadDraft(charId, file);
+    }
+
+    @GetMapping("/hard-char")
+    public List<LowestCharScoreRes> getLowestCharScores() {
+        return activitySer.getLowestScoreCharacters();
+    }
+
+    @PostMapping("/daily-activity")
+    public List<AdminActivityDailyRes> getDailyActivity(@RequestBody Map<String, Integer> body) {
+        int days = body.get("days");
+        return activitySer.getAdminActivityDaily(days);
+    }
+
+    @PostMapping("/get-user-detail-activity")
+    public AdminActivityUseRes getUserActivity(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        return activitySer.getUserActivity(email);
+    }
+
+    @GetMapping("/get-user-activity")
+    public List<AdminActivityUseRes> getUserActivity() {
+        return activitySer.getUserActivity();
+    }
+
+    @DeleteMapping("/delete-question")
+    public boolean deleteQuestion(@RequestBody Map<String, Long> body) {
+        Long questionId = body.get("questionId");
+        return exerciseSer.deleteQuestion(questionId);
+    }
+
+    @PostMapping("/create-question")
+    public boolean createQuestion(@RequestBody AdminCreateQuestionReq req) {
+        return exerciseSer.createQuestion(req);
+    }
+
+    @PatchMapping("/update-question")
+    public boolean updateQuestion(@RequestBody AdminUpdateQuestionReq req) {
+        return exerciseSer.updateQuestion(req);
+    }
+
+    @GetMapping("/get-quizzes")
+    public List<AdminQuizRes> getQuizzes() {
+        return exerciseSer.getQuizzes();
+    }
+
+    @GetMapping("/get-questions")
+    public List<AdminQuestionRes> getQuestions() {
+        return exerciseSer.getQuestions();
+    }
+
+    @PostMapping("/update-order-index")
+    public boolean updateOrderIndex(@RequestBody AdminLessonOrderIndexReq req) {
+        return lessonSer.updateOrderIndex(req);
+    }
+
+    @PostMapping("/edit-char")
+    public boolean editChar(@RequestBody EditCharReq req) {
+        return characterSer.editChar(req);
+    }
+
+    @PostMapping("/search-char")
+    public List<CharacterEntity> searchCharacters(@RequestBody Map<String ,String> body) {
+        String keyword = body.get("keyword");
+        return characterSer.searchCharacters(keyword);
+    }
+
+    @GetMapping("/all-char")
+    public List<CharacterRes> getAllCharacters() {
+        return characterSer.getAllCharacters();
+    }
+
+    @DeleteMapping("/delete-lesson")
+    public boolean deleteLesson(@RequestBody Map<String, Long> body) {
+        Long lessonId = body.get("lessonId");
+        return lessonSer.deleteLesson(lessonId);
+    }
+
+    @PostMapping("/add-lesson")
+    public boolean addLesson(@RequestBody AddLessonRouteReq req) {
+        return lessonSer.addLessonRoute(req);
+    }
+
+    @PostMapping("/edit-lesson")
+    public boolean editLesson(@RequestBody EditLessonRouteReq req) {
+        return lessonSer.editLessonRoute(req);
+    }
+
+//    @GetMapping("/all-cate-road")
+//    public List<LessonCategoryRouteRes> getCateRoute() {
+//        return lessonSer.getCateRoute();
+//    }
+
+    @PostMapping("/search-lessons-name")
+    public List<LessonRoute> getLessonsByName(@RequestBody Map<String, String> body) {
+        String name = body.get("lessonRoadName");
+        return lessonSer.getLessonByName(name);
+    }
+
+    @GetMapping("/all-lessons-road")
+    public List<LessonRoute> getAllLessonRoutes() {
+        return lessonSer.getAllLessonRoutes();
+    }
+
+    @DeleteMapping("/delete")
+    public boolean deleteUser(@RequestBody Map<String, Long> body) {
+        long authId = body.get("authId");
+        return ser.deleteUser(authId);
+    }
+
+    @PostMapping("/create")
+    public boolean createUser(@RequestBody CreateUserAdminReq req) {
+        return ser.createUser(req);
+    }
+
+    @PatchMapping("/change")
+    public boolean changeUser(@RequestBody UserChangeProfileReq req) {
+        return ser.changeProfileUser(req);
+    }
+
+    @PostMapping("/email")
+    public List<AdminUserRes> getAdminUserByEmail(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        return ser.getAdminUsersByEmail(email);
+    }
+
+    @GetMapping("/all")
+    public List<AdminUserRes> getAllAuth() {
+        return ser.getAllAuth();
+    }
+}

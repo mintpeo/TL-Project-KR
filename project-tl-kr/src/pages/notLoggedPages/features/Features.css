@@ -1,0 +1,134 @@
+.section {
+    padding: 80px 40px;
+    max-width: 1180px;
+    margin: 0 auto;
+
+    .section-head {
+        text-align: center;
+        max-width: 560px;
+        margin: 0 auto 48px;
+
+        .eyebrow-pill {
+            margin-bottom: 14px;
+        }
+
+        h2 {
+            font-size: 30px;
+            margin: 0 0 12px;
+        }
+
+        p {
+            font-size: 15px;
+            color: var(--ink-soft);
+            line-height: 1.7;
+            margin: 0;
+        }
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap: 20px;
+
+        .feature-card {
+            background: var(--paper-card);
+            border: 1px solid var(--paper-dim);
+            border-radius: 16px;
+            padding: 26px;
+
+            h3 {
+                font-size: 16px;
+                margin: 0 0 8px;
+                font-family: 'Be Vietnam Pro',sans-serif;
+                font-weight: 700;
+            }
+
+            p {
+                font-size: 13px;
+                color: var(--ink-soft);
+                line-height: 1.65;
+                margin: 0;
+            }
+
+            .feature-icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 16px;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    stroke: currentColor;
+                    fill: none;
+                    stroke-width: 1.8;
+                }
+            }
+
+            .fi-celadon {
+                background: var(--celadon-light);
+                color: var(--celadon-dark);
+            }
+
+            .fi-gold {
+                background: var(--gold-light);
+                color: var(--gold);
+            }
+
+            .fi-plum {
+                background: var(--plum-light);
+                color: var(--plum);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 48px 20px;
+
+        .section-head {
+            margin-bottom: 32px;
+
+            h2 {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+
+            .feature-card {
+                padding: 20px;
+
+                h3 {
+                    font-size: 15px;
+                }
+
+                p {
+                    font-size: 13px;
+                }
+
+                .feature-icon {
+                    width: 40px;
+                    height: 40px;
+                    margin-bottom: 12px;
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+            }
+        }
+    }
+}

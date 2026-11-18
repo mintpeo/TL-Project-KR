@@ -1,0 +1,253 @@
+#admin-exercises {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--ink);
+
+    h1, h3 {
+        font-family: 'Noto Serif KR', serif;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+    }
+
+    .stat-row {
+        display: grid;
+        grid-template-columns:repeat(3, 1fr);
+    }
+
+    .btn-primary {
+        background: var(--celadon-dark);
+        color: #fff;
+
+        &:hover {
+            background: #324c37;
+        }
+    }
+
+    .btn-ghost {
+        background: transparent;
+        color: var(--ink-soft);
+        border: 1px solid var(--paper-dim);
+
+        &:hover {
+            border-color: var(--celadon);
+            color: var(--celadon-dark);
+        }
+    }
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(35, 40, 35, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+
+        .modal-card {
+            width: 100%;
+            max-width: 460px;
+            background: var(--paper-card);
+            border-radius: 16px;
+            padding: 26px;
+            max-height: 90vh;
+            overflow-y: auto;
+
+            h3 {
+                font-size: 17px;
+                margin: 0 0 18px;
+            }
+
+            .field {
+                margin-bottom: 16px;
+
+                .field-label-row {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 16px;
+                    margin-bottom: 6px;
+                }
+
+                .audio-toggle {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-size: 14px;
+                    color: var(--ink-soft);
+                    white-space: nowrap;
+
+                    span {
+                        font-size: 12px;
+                    }
+                }
+
+                .toggle-switch {
+                    width: 46px;
+                    height: 20px;
+                    padding: 2px;
+                    border: none;
+                    border-radius: 999px;
+                    background: #ccc;
+                    cursor: pointer;
+                    position: relative;
+                    transition: background 0.25s ease;
+                }
+
+                .toggle-thumb {
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    background: white;
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+                    transition: transform 0.25s ease;
+                }
+
+                .toggle-switch.active {
+                    background: var(--celadon);
+                    padding-left: 6px;
+                }
+
+                .toggle-switch.active .toggle-thumb {
+                    transform: translateX(22px);
+                }
+
+                label {
+                    display: block;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: var(--ink);
+                    /*margin-bottom: 6px;*/
+                }
+
+                input, select {
+                    width: 100%;
+                    padding: 9px 12px;
+                    border-radius: 9px;
+                    border: 1px solid var(--paper-dim);
+                    background: var(--paper);
+                    font-size: 13px;
+                    color: var(--ink);
+                    outline: none;
+                    font-family: 'Be Vietnam Pro', sans-serif;
+
+                    &:focus {
+                        border-color: var(--celadon);
+                    }
+                }
+
+                .options-form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    .option-row {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+
+                        input {
+                            flex: 1;
+                        }
+
+                        .radio-btn {
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 50%;
+                            border: 2px solid var(--paper-dim);
+                            background: var(--paper);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            flex-shrink: 0;
+                            padding: 0;
+
+                            .radio-dot {
+                                width: 10px;
+                                height: 10px;
+                                border-radius: 50%;
+                                background: var(--celadon-dark);
+                            }
+                        }
+
+                        .radio-btn.checked {
+                            border-color: var(--celadon-dark);
+                        }
+                    }
+                }
+            }
+
+            .quiz-list {
+                margin: 12px 0 16px;
+            }
+
+            .quiz-list__title {
+                margin: 0 0 8px;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                color: var(--ink-soft);
+            }
+
+            .quiz-list__items {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                max-height: 220px;          /* danh sách dài thì cuộn trong khung */
+                overflow-y: auto;
+                border: 1px solid var(--paper-dim);
+                border-radius: 12px;
+                background: var(--paper);
+            }
+
+            .quiz-list__item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 10px 12px;
+                border-bottom: 1px solid var(--paper-dim);
+            }
+
+            .quiz-list__item:last-child {
+                border-bottom: none;
+            }
+
+            .quiz-list__name {
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: var(--ink);
+                font-size: 14px;
+            }
+
+            .quiz-list__delete {
+                flex: none;
+                padding: 5px 12px;
+                border-radius: 8px;
+                border: 1px solid var(--plum);
+                background: transparent;
+                color: var(--plum);
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.15s ease, color 0.15s ease;
+            }
+
+            .quiz-list__delete:hover {
+                background: var(--plum);
+                color: #fff;
+            }
+
+            .modal-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+                margin-top: 20px;
+            }
+        }
+    }
+}
