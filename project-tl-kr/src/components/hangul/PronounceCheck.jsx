@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { blobToWav16k } from './audioToWav.js';
 import './PronounceCheck.css';
+import { API_URL } from "../API_URL.jsx";
 
 const MAX_RECORD_MS = 4000;   // tự dừng sau 4 giây
 const CANON = { 'ㅐ': 'ㅔ', 'ㅒ': 'ㅖ' };           // 2 cặp phát âm giống nhau
