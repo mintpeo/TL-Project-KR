@@ -1,9 +1,6 @@
 .DS_Store
 **/.DS_Store
 
-# Khóa bí mật
-.env
-
 # Thư viện và file build (tự sinh lại khi cài đặt)
 node_modules/
 **/node_modules/
