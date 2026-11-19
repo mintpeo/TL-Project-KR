@@ -88,6 +88,8 @@ export default function PronounceCheck({ expected, kind = 'consonant', onResult 
 
             const res = await fetch("http://localhost:8080/api/audio/check", {
                 method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
                 body: form });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
