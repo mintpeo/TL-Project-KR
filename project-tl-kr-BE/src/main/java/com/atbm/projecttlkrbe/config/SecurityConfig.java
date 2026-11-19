@@ -31,26 +31,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**", "/api/verify/**", "/oauth2/**", "/assets/**").permitAll()
                         .requestMatchers(
-                                "/api/admin/**"
-                                ,"/api/user/**"
-                                ,"/api/user-streak/**"
-                                ,"/api/quiz/**"
-                                ,"/api/practice/**"
-                                ,"/api/progress/**"
-                                ,"/api/lesson-cate/**"
-                                ,"/api/lesson/**"
-                                ,"/api/predict/**"
-                                ,"/api/lesson-cate-route/**"
-                                ,"/api/lesson-route/**"
-                                ,"/api/character/**"
-                                ,"/api/audio/**"
-                                ,"/api/user-lesson-progress/**"
-                                ,"/api/user-level/**"
-                                ,"/api/level-exam/**"
-                                ,"/api/exam/**"
-                        )
-                                .permitAll()
-                        .requestMatchers(
                                 "/api/user/**"
                                 ,"/api/user-streak/**"
                                 ,"/api/quiz/**"

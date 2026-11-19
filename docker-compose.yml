@@ -1,0 +1,46 @@
+# Chạy:  docker compose up -d --build      Mở:  http://localhost:5173
+services:
+  db:
+    image: mariadb:10.11            # file init.sql được xuất từ MariaDB 10.4 nên dùng MariaDB cho tương thích
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "yes"
+      MARIADB_DATABASE: project-tl-kr
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro   # chỉ nạp ở lần chạy đầu tiên
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      retries: 30
+
+  backend:
+    build: ./project-tl-kr-BE
+    env_file: .env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/project-tl-kr?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${DB_ROOT_PASSWORD}
+      AI_SERVICE_URL: http://ai-service:8000
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"                 # trình duyệt gọi thẳng localhost:8080 như khi chạy máy thật
+
+  ai-service:
+    build: ./AI-Service-Kr
+    environment:
+      BACKEND_URL: http://backend:8080
+      AI_SERVICE_KEY: ${AI_SERVICE_KEY}
+    depends_on:
+      - backend                     # dịch vụ AI tự chờ backend sẵn sàng rồi mới tải mẫu
+
+  frontend:
+    build: ./project-tl-kr
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"                   # giữ cổng 5173 để khớp CORS, Google OAuth và link email trong backend
+
+volumes:
+  db_data:

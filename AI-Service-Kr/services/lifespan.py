@@ -1,13 +1,31 @@
 from contextlib import asynccontextmanager
 
+import asyncio
+
 import httpx
 import tensorflow as tf
 from fastapi import FastAPI
 
-from config import MODEL_CLASSES_MAP, MODEL_PATH, SPRING_BOOT_API_URL
+from config import MODEL_CLASSES_MAP, MODEL_PATH, SPRING_BOOT_API_URL, SPRING_BOOT_AUDIO_API_URL
 from services.audio_service import load_audio_refs
 from services.image_processing import convert_bytes_to_binary_template
 
+
+async def wait_for_backend(client, retries=60, delay=3):
+    """Trong Docker các container khởi động cùng lúc: chờ backend trả lời rồi mới tải dữ liệu mẫu."""
+    for i in range(retries):
+        try:
+            if (await client.get(SPRING_BOOT_AUDIO_API_URL)).status_code == 200:
+                print(">>> Backend đã sẵn sàng.")
+                return
+        except Exception:
+            pass
+        print(f">>> Đang chờ backend ({i + 1}/{retries})...")
+        await asyncio.sleep(delay)
+    print("Cảnh báo: backend chưa sẵn sàng, dịch vụ AI chạy mà không có dữ liệu mẫu.")
+
+
+@asynccontextmanager
 async def lifespan(app: FastAPI):
     if not MODEL_PATH.exists():
         raise FileNotFoundError(f"Không tìm thấy mô hình tại: {MODEL_PATH.resolve()}")
@@ -25,6 +43,7 @@ async def lifespan(app: FastAPI):
     print(">>> Đang kết nối Spring Boot để đồng bộ ảnh mẫu từ Cloudinary...")
 
     async with httpx.AsyncClient(timeout=30.0) as client:
+        await wait_for_backend(client)
         try:
             resp = await client.get(SPRING_BOOT_API_URL)
             if resp.status_code == 200:

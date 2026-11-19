@@ -1,0 +1,11 @@
+# keras phải đúng 3.13.2 (phiên bản đã lưu file .keras). tensorflow: ghi đúng phiên bản trên máy bạn (pip show tensorflow)
+tensorflow==2.21.0
+keras==3.15.1
+fastapi
+uvicorn[standard]
+python-multipart
+httpx
+numpy
+opencv-python-headless
+librosa
+faster-whisper

@@ -1,3 +1,4 @@
+SET FOREIGN_KEY_CHECKS=0;
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -938,7 +939,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `full_name`, `number_phone`, `auth_id`) VALUES
 (1, 'Tran Minh', '1234', 22),
-(11, 'minhadmin', NULL, 26),
+(11, 'minhadmin', NULL, NULL),
 (17, 'minh', '123', 32),
 (20, 'minh', '123', 35),
 (24, 'minh', '12', 39),
@@ -1472,3 +1473,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS=1;

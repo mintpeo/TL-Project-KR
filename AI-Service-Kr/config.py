@@ -1,13 +1,18 @@
+import os
 from pathlib import Path
+
+# Địa chỉ backend: chạy máy thật dùng localhost, trong Docker đặt BACKEND_URL=http://backend:8080
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8080")
 
 MAX_AUDIO_DISTANCE = 1.1   # xa hơn mức này coi như không nghe ra (cần hiệu chỉnh theo dữ liệu thật)
 # API Spring Boot trả về danh sách âm thanh mẫu (SỬA LẠI link này cho đúng API của bạn)
-SPRING_BOOT_AUDIO_API_URL = "http://localhost:8080/api/character/all"
+SPRING_BOOT_AUDIO_API_URL = f"{BACKEND_URL}/api/character/all"
 # Tên các trường có thể chứa link file âm thanh / nhãn ký tự trong mỗi phần tử JSON (SỬA nếu khác)
 AUDIO_URL_KEYS = ("audioUrl", "audio_url", "audio", "url", "fileUrl")
 AUDIO_LABEL_KEYS = ("name", "char", "character", "label")
-SPRING_BOOT_API_URL = "http://localhost:8080/api/admin/all-temp"
-MODEL_PATH = Path("/Users/macbook/AI-Service-Kr/model/230034_hangul.keras")
+SPRING_BOOT_API_URL = f"{BACKEND_URL}/api/admin/all-temp"
+# Mặc định: thư mục model/ nằm cạnh file này (chạy được cả trên máy thật lẫn trong Docker)
+MODEL_PATH = Path(os.getenv("MODEL_PATH", Path(__file__).resolve().parent / "model" / "230034_hangul.keras"))
 MODEL_CLASSES_MAP = [
     {"label": "a", "char": "ㅏ"},
     {"label": "ae", "char": "ㅐ"},

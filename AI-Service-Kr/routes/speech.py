@@ -3,10 +3,11 @@ from fastapi import APIRouter, Depends, File, Form, Query, UploadFile, Request
 
 from audio.audio_match import feature_from_bytes, classify
 from config import MAX_AUDIO_DISTANCE
+from security import verify_key
 
 router = APIRouter()
 
-@router.post("/speech/check")
+@router.post("/speech/check", dependencies=[Depends(verify_key)])
 def speech_check(
         request: Request,
         audio: UploadFile = File(...),
