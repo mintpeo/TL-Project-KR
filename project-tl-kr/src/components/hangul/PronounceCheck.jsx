@@ -86,11 +86,11 @@ export default function PronounceCheck({ expected, kind = 'consonant', onResult 
             form.append('audio', wav, 'speech.wav');
             form.append('kind', kind);                 // "vowel" | "consonant"
 
-            const res = await fetch("http://localhost:8080/api/audio/check", {
+            const res = await fetch(`${API_URL}/audio/check`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: form });
+                body: form,
+            });
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
             console.log('speech result:', data);       // phải có char: "ㅏ"
