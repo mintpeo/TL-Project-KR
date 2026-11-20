@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**", "/api/verify/**", "/oauth2/**", "/assets/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/verify/**", "/oauth2/**", "/assets/**", "/api/admin/all-temp", "/api/character/all").permitAll()
                         .requestMatchers(
                                 "/api/user/**"
                                 ,"/api/user-streak/**"
@@ -47,7 +47,6 @@ public class SecurityConfig {
                                 ,"/api/user-level/**"
                                 ,"/api/level-exam/**"
                         ).authenticated()
-                        .requestMatchers("/api/admin/all-temp", "/api/character/all").permitAll() // Fast API
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
